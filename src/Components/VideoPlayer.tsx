@@ -5,12 +5,6 @@ import previous from '../assets/player/previous.svg'
 import play from '../assets/player/play.svg'
 import pause from '../assets/player/pause.svg'
 
-type YouTubeVideo = {
-        id: string;
-        snippet: {
-                title: string;
-        };
-};
 
 const VideoPlayer = () => {
         const playerRef = useRef<YT.Player | null>(null); // Definindo o tipo corretamente
@@ -19,6 +13,7 @@ const VideoPlayer = () => {
         const [currentVideoIndex, setCurrentVideoIndex] = useState(0); // Estado para o índice do vídeo atual
         const [hasUserInteracted, setHasUserInteracted] = useState(false);
         const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
+        const [isPlaying, setIsPlaying] = useState(false); // Estado para controlar a reprodução do vídeo
         const listUrl = ['jfKfPfyJRdk', '5yx6BWlEVcY', 'qH3fETPsqXU', '7NOSDKb0HlU', 'GgbeNFD7l7Q', 'HuFYqnbVbzY']
 
         // const apiKey = import.meta.env.VITE_API_KEY;
@@ -107,8 +102,19 @@ const VideoPlayer = () => {
                         playerRef.current.unMute();
                         setShowMessage(false); // Esconde a mensagem após o vídeo começar
                         setHasUserInteracted(true);
+                        setIsPlaying(true); // Define que o vídeo está sendo reproduzido
                 }
         };
+
+        const pauseVideo = () => {
+                if (playerRef.current) {
+                        playerRef.current.pauseVideo();
+                        playerRef.current.unMute();
+                        setShowMessage(false); // Esconde a mensagem após o vídeo começar
+                        setHasUserInteracted(true);
+                }
+        };
+
 
         useEffect(() => {
                 const handleKeyPress = () => {
@@ -120,6 +126,18 @@ const VideoPlayer = () => {
                         document.removeEventListener("keypress", handleKeyPress);
                 };
         }, []);
+
+        const togglePlayPause = () => {
+                if (playerRef.current) {
+                        if (isPlaying) {
+                                playerRef.current.pauseVideo();
+                        } else {
+                                playerRef.current.playVideo();
+                                playerRef.current.unMute();
+                        }
+                        setIsPlaying(!isPlaying); // Alterna o estado de reprodução
+                }
+        };
 
         const opts = {
                 height: '390',
@@ -139,8 +157,8 @@ const VideoPlayer = () => {
                                                 <button onClick={prevVideo}>
                                                         <img src={previous} className='w-6 h-6' />
                                                 </button>
-                                                <button onClick={() => console.log('play')}>
-                                                        <img src={play} className='w-6 h-6' />
+                                                <button onClick={togglePlayPause}>
+                                                        <img src={isPlaying ? pause : play} className='w-6 h-6' />
                                                 </button>
                                                 <button onClick={nextVideo}>
                                                         <img src={forward} className='w-6 h-6' />
