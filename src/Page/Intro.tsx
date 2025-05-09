@@ -7,26 +7,6 @@ import VideoPlayer from '../Components/VideoPlayer'
 
 
 const Intro = () => {
-  const apiKey = import.meta.env.VITE_API_KEY;
-  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&id=jfKfPfyJRdk&key=${apiKey}`
-
-
-  // useEffect(() => {
-  //   async function req() {
-  //     try {
-  //       const response = await fetch(apiUrl)
-  //       if (!response.ok) {
-  //         throw new Error(`Erro na solicitação: ${response.status}`)
-  //       }
-  //       const data = await response.json()
-  //       console.log(data)
-  //     } catch (error) {
-  //       console.error('Erro ao buscar os dados:', error)
-  //     }
-  //   }
-  //   req()
-  // })
-
   return (
     <main className='flex items-center justify-center h-screen z-10 relative'>
       <img src={scanline} alt="scanline" className='absolute' />
