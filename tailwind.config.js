@@ -1,13 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {     
+    extend: {
       fontFamily: {
-        mastone: ['Mastone', 'sans-serif'], // Nome da fonte personalizada
+        vt323: ["VT323", "monospace"],
       },
     },
   },

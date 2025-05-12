@@ -19,13 +19,14 @@ export const changeBgGif = () => {
 }
 
 const VideoPlayer = () => {
-        const playerRef = useRef<YT.Player | null>(null); // Definindo o tipo corretamente
+        const playerRef = useRef<YT.Player | null>(null);
         const videoRef = useRef<HTMLVideoElement>(null);
         const [showMessage, setShowMessage] = useState(true); // Estado para controlar a exibição da mensagem
         const [videoTitle, setVideoTitle] = useState("Carregando...");
         const [currentVideoIndex, setCurrentVideoIndex] = useState(0); // Estado para o índice do vídeo atual
         const [hasUserInteracted, setHasUserInteracted] = useState(false);
         const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
+        const [isPlayerReady, setIsPlayerReady] = useState(false);
         const [isPlaying, setIsPlaying] = useState(false); // Estado para controlar a reprodução do vídeo
         const listUrl = ['jfKfPfyJRdk', '5yx6BWlEVcY', 'qH3fETPsqXU', '7NOSDKb0HlU', 'GgbeNFD7l7Q', 'HuFYqnbVbzY'];
         const apiKey = import.meta.env.VITE_API_KEY;
@@ -113,6 +114,7 @@ const VideoPlayer = () => {
 
         const onReady = (event: { target: YT.Player }) => {
                 playerRef.current = event.target;
+                setIsPlayerReady(true);
 
                 // Escuta mudança de estado do player
                 event.target.addEventListener("onStateChange", (e: YT.OnStateChangeEvent) => {
@@ -148,7 +150,6 @@ const VideoPlayer = () => {
                                 const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
                                 const res = await fetch(apiUrl);
                                 const data = await res.json();
-                                console.log(data);
                                 const title = data.items[0]?.snippet?.title || 'Título não encontrado';
                                 setVideoTitle(title);
                         } catch (error) {
@@ -159,6 +160,24 @@ const VideoPlayer = () => {
 
                 fetchVideoTitle();
         }, [currentVideoIndex]);
+
+        useEffect(() => {
+                const handleKeyPress = () => {
+                        if (isPlayerReady && playerRef.current) {
+                                playerRef.current.playVideo();
+                                playerRef.current.unMute();
+                                setShowMessage(false);
+                                setIsPlaying(true);
+                        } else {
+                                console.log("Player ainda não está pronto");
+                        }
+                };
+
+                document.addEventListener("keydown", handleKeyPress);
+                return () => {
+                        document.removeEventListener("keydown", handleKeyPress);
+                };
+        }, [isPlayerReady]); // dependência adicionada aqui
 
 
 
