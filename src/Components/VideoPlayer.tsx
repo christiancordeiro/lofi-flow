@@ -5,7 +5,18 @@ import previous from '../assets/player/previous.svg'
 import play from '../assets/player/play.svg'
 import pause from '../assets/player/pause.svg'
 import noiseFile from '../assets/player/effect/noise.mp3'
+import * as gifs from '../assets/gifs';
 
+export const changeBgGif = () => {
+        const bg = document.getElementById('bg-gif') as HTMLImageElement;
+        if (bg) {
+                // Obtém as chaves do objeto `gifs` e escolhe uma aleatória
+                const gifKeys = Object.keys(gifs) as (keyof typeof gifs)[];
+                const randomKey = gifKeys[Math.floor(Math.random() * gifKeys.length)];
+
+                bg.src = gifs[randomKey];
+        }
+}
 
 const VideoPlayer = () => {
         const playerRef = useRef<YT.Player | null>(null); // Definindo o tipo corretamente
@@ -48,6 +59,7 @@ const VideoPlayer = () => {
                 playNoiseThenVideo();
                 setIsPlaying(true);
                 setShowMessage(false);
+                changeBgGif();
 
                 const nextVideoId = listUrl[nextIndex];
 
@@ -76,6 +88,7 @@ const VideoPlayer = () => {
                 playNoiseThenVideo();
                 setIsPlaying(true);
                 setShowMessage(false);
+                changeBgGif();
 
                 const nextVideoId = listUrl[nextIndex];
 
@@ -146,6 +159,8 @@ const VideoPlayer = () => {
 
                 fetchVideoTitle();
         }, [currentVideoIndex]);
+
+
 
         const opts = {
                 height: '390',
