@@ -21,6 +21,7 @@ const Intro = () => {
         <img src={vignette} alt="lateral effect" className='w-full h-full relative' />
       </div>
       <div className='w-full h-full -z-10 absolute top-0 left-0'>
+        <div id='effect'></div>
         <img src={g} alt="gif" className='w-full h-full relative object-cover' />
       </div>
     </main>

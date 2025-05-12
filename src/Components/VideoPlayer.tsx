@@ -4,33 +4,50 @@ import forward from '../assets/player/forward.svg'
 import previous from '../assets/player/previous.svg'
 import play from '../assets/player/play.svg'
 import pause from '../assets/player/pause.svg'
+import noiseFile from '../assets/player/effect/noise.mp3'
 
 
 const VideoPlayer = () => {
         const playerRef = useRef<YT.Player | null>(null); // Definindo o tipo corretamente
+        const videoRef = useRef<HTMLVideoElement>(null);
         const [showMessage, setShowMessage] = useState(true); // Estado para controlar a exibição da mensagem
         const [videoTitle, setVideoTitle] = useState("Carregando...");
         const [currentVideoIndex, setCurrentVideoIndex] = useState(0); // Estado para o índice do vídeo atual
         const [hasUserInteracted, setHasUserInteracted] = useState(false);
         const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
         const [isPlaying, setIsPlaying] = useState(false); // Estado para controlar a reprodução do vídeo
-        const listUrl = ['jfKfPfyJRdk', '5yx6BWlEVcY', 'qH3fETPsqXU', '7NOSDKb0HlU', 'GgbeNFD7l7Q', 'HuFYqnbVbzY']
+        const listUrl = ['jfKfPfyJRdk', '5yx6BWlEVcY', 'qH3fETPsqXU', '7NOSDKb0HlU', 'GgbeNFD7l7Q', 'HuFYqnbVbzY'];
+        const apiKey = import.meta.env.VITE_API_KEY;
 
-        // const apiKey = import.meta.env.VITE_API_KEY;
-        // const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&id=${listUrl.join(',')}&key=${apiKey}`
-
-        const getTitleIframe = () => {
-                // Atualiza o título
-                const iframe = playerRef.current?.getIframe();
-                if (iframe) {
-                        const title = iframe.getAttribute("title");
-                        setVideoTitle(title || "Título não encontrado");
+        const applyTvScreenClass = () => {
+                const divEffect = document.getElementById("effect")
+                if (divEffect) {
+                        divEffect.classList.add("loading-channel")
+                        setTimeout(() => {
+                                divEffect.classList.remove("loading-channel")
+                        }, 500)
                 }
+        }
+
+        const playNoiseThenVideo = () => {
+                const noise = new Audio(noiseFile)
+                noise.play()
+                setTimeout(() => {
+                        noise.pause()
+                        noise.currentTime = 0
+                        if (videoRef.current) {
+                                videoRef.current.play()
+                        }
+                }, 500)
         }
 
         const nextVideo = () => {
                 const nextIndex = (currentVideoIndex + 1) % listUrl.length;
                 setCurrentVideoIndex(nextIndex);
+                applyTvScreenClass();
+                playNoiseThenVideo();
+                setIsPlaying(true);
+                setShowMessage(false);
 
                 const nextVideoId = listUrl[nextIndex];
 
@@ -44,21 +61,27 @@ const VideoPlayer = () => {
 
                         // Define que deve tocar quando o vídeo estiver pronto
                         if (hasUserInteracted) {
-                                setShouldAutoPlay(true);
+                                playerRef.current.playVideo();
+                                playerRef.current.unMute();
                         }
 
-                        getTitleIframe(); // Atualiza o título do vídeo
+                        setShouldAutoPlay(true);
                 }
         };
 
         const prevVideo = () => {
-                const nextIndex = (currentVideoIndex - 1) % listUrl.length;
+                const nextIndex = (currentVideoIndex - 1 + listUrl.length) % listUrl.length;
                 setCurrentVideoIndex(nextIndex);
+                applyTvScreenClass();
+                playNoiseThenVideo();
+                setIsPlaying(true);
+                setShowMessage(false);
 
                 const nextVideoId = listUrl[nextIndex];
 
                 if (playerRef.current) {
                         playerRef.current.loadVideoById(nextVideoId);
+                        playerRef.current.playVideo();
 
                         // Considera que o usuário interagiu ao clicar no botão de próximo
                         if (!hasUserInteracted) {
@@ -67,22 +90,16 @@ const VideoPlayer = () => {
 
                         // Define que deve tocar quando o vídeo estiver pronto
                         if (hasUserInteracted) {
-                                setShouldAutoPlay(true);
+                                playerRef.current.playVideo();
+                                playerRef.current.unMute();
                         }
 
-                        getTitleIframe(); // Atualiza o título do vídeo
+                        setShouldAutoPlay(true);
                 }
         };
 
         const onReady = (event: { target: YT.Player }) => {
                 playerRef.current = event.target;
-
-                // Espera um pequeno tempo até o iframe estar no DOM
-                const iframe = event.target.getIframe();
-                if (iframe) {
-                        const title = iframe.getAttribute("title");
-                        setVideoTitle(title || "Título não encontrado");
-                }
 
                 // Escuta mudança de estado do player
                 event.target.addEventListener("onStateChange", (e: YT.OnStateChangeEvent) => {
@@ -96,48 +113,39 @@ const VideoPlayer = () => {
                 });
         };
 
-        const playVideo = () => {
+        const togglePlayPause = () => {
                 if (playerRef.current) {
-                        playerRef.current.playVideo();
-                        playerRef.current.unMute();
-                        setShowMessage(false); // Esconde a mensagem após o vídeo começar
-                        setHasUserInteracted(true);
-                        setIsPlaying(true); // Define que o vídeo está sendo reproduzido
-                }
-        };
-
-        const pauseVideo = () => {
-                if (playerRef.current) {
-                        playerRef.current.pauseVideo();
-                        playerRef.current.unMute();
-                        setShowMessage(false); // Esconde a mensagem após o vídeo começar
-                        setHasUserInteracted(true);
+                        if (isPlaying) {
+                                playerRef.current.pauseVideo();
+                                setShowMessage(true);
+                        } else {
+                                playerRef.current.playVideo();
+                                playerRef.current.unMute();
+                                setShowMessage(false);
+                        }
+                        setIsPlaying(!isPlaying); // Alterna o estado de reprodução
                 }
         };
 
 
         useEffect(() => {
-                const handleKeyPress = () => {
-                        playVideo();
-                };
-
-                document.addEventListener("keypress", handleKeyPress);
-                return () => {
-                        document.removeEventListener("keypress", handleKeyPress);
-                };
-        }, []);
-
-        const togglePlayPause = () => {
-                if (playerRef.current) {
-                        if (isPlaying) {
-                                playerRef.current.pauseVideo();
-                        } else {
-                                playerRef.current.playVideo();
-                                playerRef.current.unMute();
+                const fetchVideoTitle = async () => {
+                        try {
+                                const videoId = listUrl[currentVideoIndex];
+                                const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
+                                const res = await fetch(apiUrl);
+                                const data = await res.json();
+                                console.log(data);
+                                const title = data.items[0]?.snippet?.title || 'Título não encontrado';
+                                setVideoTitle(title);
+                        } catch (error) {
+                                console.error('Erro ao buscar título do vídeo:', error);
+                                setVideoTitle('Carregando título...');
                         }
-                        setIsPlaying(!isPlaying); // Alterna o estado de reprodução
-                }
-        };
+                };
+
+                fetchVideoTitle();
+        }, [currentVideoIndex]);
 
         const opts = {
                 height: '390',
@@ -167,7 +175,7 @@ const VideoPlayer = () => {
                                         <h2 className="text-white text-2xl">{videoTitle}</h2>
                                 </div>
                         </div>
-                        <div style={{ display: 'none' }}>
+                        <div style={{ opacity: 0, visibility: 'hidden', position: 'absolute' }}>
                                 <YouTube videoId={listUrl[currentVideoIndex]} opts={opts} onReady={onReady} />
                         </div>
                 </>
