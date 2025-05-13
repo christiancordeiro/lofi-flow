@@ -243,7 +243,7 @@ const VideoPlayer = () => {
                                 timeLeft: 25 * 60,
                                 isRunning: false,
                             });
-                            hasPlayedRef.current = false; 
+                            hasPlayedRef.current = false;
                         }, 1000);
                     }
 
@@ -254,7 +254,6 @@ const VideoPlayer = () => {
             return () => clearInterval(interval);
         }
     }, [pomodoro.isRunning]);
-    
 
     // Resetar flag ao reiniciar o timer
     useEffect(() => {
@@ -275,7 +274,7 @@ const VideoPlayer = () => {
     return (
         <>
             {showMessage && (
-                <h1 className="absolute bottom-10 w-full text-center text-2xl text-white animate-pulse drop-shadow-[2px_2px_4px_rgba(255,255,0,0.8)]">
+                <h1 className="absolute bottom-10 w-full text-center text-2xl text-white animate-pulse drop-shadow-[2px_2px_4px_rgba(255,255,0,0.8)] hidden xl:block">
                     Pressione alguma tecla para iniciar
                 </h1>
             )}
@@ -394,7 +393,7 @@ const VideoPlayer = () => {
                             <img src={forward} className="w-6 h-6" />
                         </button>
                     </div>
-                    <h2 className="text-2xl ">{videoTitle}</h2>
+                    <h2 className="text-2xl">{videoTitle}</h2>
                 </div>
             </div>
             <div
@@ -402,6 +401,7 @@ const VideoPlayer = () => {
                     opacity: 0,
                     visibility: 'hidden',
                     position: 'absolute',
+                    zIndex: 9999,
                 }}
             >
                 <YouTube

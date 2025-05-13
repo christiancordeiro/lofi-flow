@@ -11,15 +11,12 @@ const Intro = () => {
     }, []);
 
     return (
-        <main className="flex items-center justify-center h-screen z-10 relative">
+        <main className="flex items-center justify-center h-screen z-10 relative overflow-hidden">
             <img src={scanline} alt="scanline" className="absolute" />
             <VideoPlayer />
-            <div className="flex items-center justify-center h-screen z-20">
-                <img src={name} alt="name site" className="w-96" />
+            <div className="flex items-center justify-center h-screen z-10 px-4 lg:px-0">
+                <img src={name} alt="name site" className="w-80 lg:w-96" />
             </div>
-            {/* <div className=' w-full h-screen '>
-
-      </div> */}
             <div className="w-full h-full z-10 absolute top-0 left-0">
                 <img
                     src={vignette}
