@@ -14,16 +14,16 @@ export const changeBgGif = () => {
     const bg = document.getElementById('bg-gif') as HTMLImageElement;
     if (bg) {
         const gifPaths = [
-            'public/gifs/gif1.gif',
-            'public/gifs/gif2.gif',
-            'public/gifs/gif3.gif',
-            'public/gifs/gif4.gif',
-            'public/gifs/gif5.gif',
-            'public/gifs/gif6.gif',
-            'public/gifs/gif7.gif',
-            'public/gifs/gif8.gif',
-            'public/gifs/gif9.gif',
-            'public/gifs/gif10.gif',
+            '/gifs/gif1.gif',
+            '/gifs/gif2.gif',
+            '/gifs/gif3.gif',
+            '/gifs/gif4.gif',
+            '/gifs/gif5.gif',
+            '/gifs/gif6.gif',
+            '/gifs/gif7.gif',
+            '/gifs/gif8.gif',
+            '/gifs/gif9.gif',
+            '/gifs/gif10.gif',
         ];
 
         // Escolhe um GIF aleatório
