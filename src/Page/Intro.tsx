@@ -3,7 +3,7 @@ import vignette from '../assets/vignette.png';
 import scanline from '../assets/scanlines.png';
 import VideoPlayer from '../Components/VideoPlayer';
 import { useEffect, useState } from 'react';
-import { changeBgGif } from '../Components/VideoPlayer';
+import { changeBgGif } from '../Components/Player/usePlayer';
 import initial from '/gifs/glitch.gif';
 
 const Intro = () => {
