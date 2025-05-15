@@ -13,6 +13,8 @@ const Player = () => {
         isPlaying,
         setButtonTitleClick,
         buttonTitleClick,
+        volume,
+        handleVolumeChange,
     } = usePlayerContext();
 
     return (
@@ -31,6 +33,16 @@ const Player = () => {
                     <button onClick={nextVideo}>
                         <img src={forward} className="w-6 h-6" />
                     </button>
+                    <div>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={volume}
+                            onChange={handleVolumeChange}
+                            className="cursor-pointer"
+                        />
+                    </div>
                 </div>
                 <button
                     onClick={() => setButtonTitleClick(!buttonTitleClick)}

@@ -37,6 +37,7 @@ export const usePlayer = () => {
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [videoTitle, setVideoTitle] = useState<string[]>([]);
     const [currentVideoTitle, setCurrentVideoTitle] = useState('Carregando...');
+    const [volume, setVolume] = useState(100);
     const [showMessage, setShowMessage] = useState(true); // Estado para controlar a exibição da mensagem
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -181,6 +182,15 @@ export const usePlayer = () => {
         };
     }, [isPlayerReady]);
 
+    const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseInt(event.target.value);
+        event.target.style.background = `linear-gradient(to right, white ${newVolume}%, rgb(204, 203, 203) ${newVolume}%)`;
+        setVolume(newVolume);
+        if (playerRef.current) {
+            playerRef.current.setVolume(newVolume);
+        }
+    };
+
     return {
         playerRef,
         videoRef,
@@ -201,5 +211,7 @@ export const usePlayer = () => {
         thumbnails,
         currentVideoTitle,
         changeVideo,
+        volume,
+        handleVolumeChange,
     };
 };

@@ -20,3 +20,33 @@ img {
   background: url("./assets/player/effect/static6.gif") no-repeat center center;
   background-size: cover;
 }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: linear-gradient(to right, white 100%, rgb(204, 203, 203) 100%);
+}
+
+/* Bolinha do slider */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00;
+  cursor: pointer;
+}
+
+
