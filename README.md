@@ -1,54 +1,73 @@
-# React + TypeScript + Vite
+# 🎧 Radio Lofi com Pomodoro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo web bonito e funcional que une duas ferramentas ideais para concentração nos estudos: **rádio lofi** e um **temporizador Pomodoro**. A interface é enriquecida com **GIFs animados** de fundo, proporcionando uma experiência visual relaxante.
 
-Currently, two official plugins are available:
+## 🧠 Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Reunir em um só lugar dois recursos que costumo usar durante meus estudos: **música ambiente lofi** e a **técnica Pomodoro**. A proposta é ajudar outras pessoas a focarem melhor durante seus estudos, trabalhos ou leituras.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📸 Preview
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+![image](https://github.com/user-attachments/assets/d0ddfa67-f1ee-4b9c-912a-6df190aabea5)
+
+
+---
+
+## ✨ Funcionalidades
+
+- 🎵 Estações de rádio com músicas lofi transmitidas via **YouTube API**  
+- ⏱️ Temporizador Pomodoro personalizável  
+- 🎬 Fundo animado com **GIFs visuais** relaxantes  
+- 🎯 Interface intuitiva, pensada para o foco e simplicidade  
+
+---
+
+## 📦 Tecnologias utilizadas
+
+- **React 18** com **TypeScript**
+- **Vite** para build e desenvolvimento
+- **Tailwind CSS** para estilização moderna
+- **React Router v7** para navegação
+- **YouTube API** para carregar as rádios ao vivo
+
+---
+
+## 🚀 Como rodar localmente
+
+1. **Clone o repositório**
+
+```bash
+git clone https://github.com/christiancordeiro/lofi-flow.git
+cd lofi-flow
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Instale as dependências**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+
+3. **Inicie o projeto**
+
+```bash
+npm run dev
+```
+
+
+---
+
+## 📌 Observações
+
+- Este projeto é **pessoal e experimental**, mas pode ser útil para qualquer pessoa que deseje manter o foco durante os estudos.
+- O uso da **API do YouTube** pode ter limitações, portanto, rádios podem variar ou estar indisponíveis caso os vídeos sejam removidos.
+
+---
+
+## 🧑‍💻 Autor
+
+Desenvolvido por **Christian Cordeiro** — apaixonado por tecnologia, design e educação.  
+📚 Estudante de Análise e Desenvolvimento de Sistemas  
+🌐 [https://github.com/christiancordeiro](https://github.com/christiancordeiro)
