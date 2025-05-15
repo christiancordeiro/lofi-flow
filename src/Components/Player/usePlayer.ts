@@ -35,30 +35,47 @@ export const usePlayer = () => {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-    const [videoTitle, setVideoTitle] = useState('Carregando...');
+    const [videoTitle, setVideoTitle] = useState<string[]>([]);
+    const [currentVideoTitle, setCurrentVideoTitle] = useState('Carregando...');
     const [showMessage, setShowMessage] = useState(true); // Estado para controlar a exibição da mensagem
     const [isPlaying, setIsPlaying] = useState(false);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
     const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
     const [hasUserInteracted, setHasUserInteracted] = useState(false);
+    const [buttonTitleClick, setButtonTitleClick] = useState(false);
+    const [thumbnails, setThumbnails] = useState<string[]>([]);
 
-    const fetchVideoTitle = async () => {
+    const fetchVideoInfos = async () => {
         try {
-            const videoId = listUrl[currentVideoIndex];
-            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
-            const res = await fetch(apiUrl);
-            const data = await res.json();
-            const title =
-                data.items[0]?.snippet?.title || 'Título não encontrado';
-            setVideoTitle(title);
+            const promises = listUrl.map(async (videoId) => {
+                const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+
+                return {
+                    title:
+                        data.items[0]?.snippet?.title ||
+                        'Título não encontrado',
+                    thumbnail:
+                        data.items[0]?.snippet?.thumbnails?.medium?.url || '',
+                };
+            });
+
+            const videos = await Promise.all(promises);
+
+            const titles = videos.map((video) => video.title);
+            const thumbnails = videos.map((video) => video.thumbnail);
+
+            setVideoTitle(titles);
+            setCurrentVideoTitle(titles[currentVideoIndex]);
+            setThumbnails(thumbnails);
         } catch (error) {
-            console.error('Erro ao buscar título do vídeo:', error);
-            setVideoTitle('Carregando título...');
+            console.error('Erro ao buscar informações dos vídeos:', error);
         }
     };
 
     useEffect(() => {
-        fetchVideoTitle();
+        fetchVideoInfos();
     }, [currentVideoIndex]);
 
     const applyTvScreenClass = () => {
@@ -178,5 +195,11 @@ export const usePlayer = () => {
         listUrl,
         showMessage,
         currentVideoIndex,
+        setCurrentVideoIndex,
+        buttonTitleClick,
+        setButtonTitleClick,
+        thumbnails,
+        currentVideoTitle,
+        changeVideo,
     };
 };

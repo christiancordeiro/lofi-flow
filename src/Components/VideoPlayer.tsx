@@ -2,10 +2,16 @@ import YouTube from 'react-youtube';
 import Player from './Player/Player';
 import { usePlayerContext } from './Player/PlayerContext';
 import Header from './Header';
+import TitleModal from './TitleModal';
 
 const VideoPlayer = () => {
-    const { showMessage, currentVideoIndex, onReady, listUrl } =
-        usePlayerContext();
+    const {
+        showMessage,
+        currentVideoIndex,
+        onReady,
+        listUrl,
+        buttonTitleClick,
+    } = usePlayerContext();
 
     const opts = {
         height: '390',
@@ -25,15 +31,14 @@ const VideoPlayer = () => {
             )}
             <Header currentVideoIndex={currentVideoIndex} />
             <Player />
+            {buttonTitleClick && <TitleModal />}
             <div
-                style={
-                    {
-                        opacity: 0,
-                        visibility: 'hidden',
-                        position: 'absolute',
-                        zIndex: 9999,
-                    }
-                }
+                style={{
+                    opacity: 0,
+                    visibility: 'hidden',
+                    position: 'absolute',
+                    zIndex: 9999,
+                }}
             >
                 <YouTube
                     videoId={listUrl[currentVideoIndex]}

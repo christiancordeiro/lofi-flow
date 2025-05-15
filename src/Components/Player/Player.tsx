@@ -5,8 +5,15 @@ import pause from '../../assets/player/pause.svg';
 import { usePlayerContext } from './PlayerContext';
 
 const Player = () => {
-    const { videoTitle, prevVideo, nextVideo, togglePlayPause, isPlaying } =
-        usePlayerContext();
+    const {
+        currentVideoTitle,
+        prevVideo,
+        nextVideo,
+        togglePlayPause,
+        isPlaying,
+        setButtonTitleClick,
+        buttonTitleClick,
+    } = usePlayerContext();
 
     return (
         <div className="absolute left-12 bottom-8 z-20 drop-shadow-[2px_2px_4px_rgba(255,255,0,0.8)]">
@@ -25,7 +32,9 @@ const Player = () => {
                         <img src={forward} className="w-6 h-6" />
                     </button>
                 </div>
-                <h2 className="text-2xl">{videoTitle}</h2>
+                <button onClick={() => setButtonTitleClick(!buttonTitleClick)}>
+                    <h2 className="text-2xl">{currentVideoTitle}</h2>
+                </button>
             </div>
         </div>
     );
