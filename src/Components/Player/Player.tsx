@@ -32,7 +32,10 @@ const Player = () => {
                         <img src={forward} className="w-6 h-6" />
                     </button>
                 </div>
-                <button onClick={() => setButtonTitleClick(!buttonTitleClick)}>
+                <button
+                    onClick={() => setButtonTitleClick(!buttonTitleClick)}
+                    className="text-left"
+                >
                     <h2 className="text-2xl">{currentVideoTitle}</h2>
                 </button>
             </div>
