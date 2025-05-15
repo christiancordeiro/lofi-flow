@@ -66,6 +66,18 @@ npm run dev
 
 ---
 
+
+
+## 🌐 Acesse o Projeto Online
+
+O projeto está disponível em produção no link abaixo:
+
+🔗 **[lofi-flow-green.vercel.app](https://lofi-flow-green.vercel.app)**
+
+> Sinta-se à vontade para testar, estudar e usar enquanto estuda também!
+
+---
+
 ## 🧑‍💻 Autor
 
 Desenvolvido por **Christian Cordeiro** — apaixonado por tecnologia, design e educação.  
