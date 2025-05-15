@@ -35,6 +35,8 @@ export const usePlayer = () => {
         '7NOSDKb0HlU',
         'GgbeNFD7l7Q',
         'HuFYqnbVbzY',
+        'vYIYIVmOo3Q',
+        '28KRPhVzCus',
     ];
     const apiKey = import.meta.env.VITE_API_KEY;
 
