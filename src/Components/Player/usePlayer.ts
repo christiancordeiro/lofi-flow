@@ -15,6 +15,10 @@ export const changeBgGif = () => {
             '/gifs/gif8.gif',
             '/gifs/gif9.gif',
             '/gifs/gif10.gif',
+            '/gifs/gif11.gif',
+            '/gifs/gif12.gif',
+            '/gifs/gif13.gif',
+            '/gifs/gif14.gif',
         ];
         const randomGif = gifPaths[Math.floor(Math.random() * gifPaths.length)];
         bg.src = randomGif;
