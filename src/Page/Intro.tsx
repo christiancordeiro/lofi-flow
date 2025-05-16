@@ -5,9 +5,13 @@ import VideoPlayer from '../Components/VideoPlayer';
 import { useEffect, useState } from 'react';
 import { changeBgGif } from '../Components/Player/usePlayer';
 import initial from '/gifs/glitch.gif';
+import Header from '../Components/Header';
+import { usePlayerContext } from '../Components/Player/PlayerContext';
 
 const Intro = () => {
     const [showInitial, setShowInitial] = useState<boolean>(true);
+
+    const { currentVideoIndex } = usePlayerContext();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -24,6 +28,7 @@ const Intro = () => {
     return (
         <div className="relative h-screen w-screen overflow-hidden">
             <main className="flex items-center justify-center h-screen z-0 relative">
+                <Header currentVideoIndex={currentVideoIndex} />
                 <img src={scanline} alt="scanline" className="absolute" />
                 <VideoPlayer />
                 <div className="flex items-center justify-center h-screen z-10 px-4 lg:px-0">

@@ -1,7 +1,6 @@
 import YouTube from 'react-youtube';
 import Player from './Player/Player';
 import { usePlayerContext } from './Player/PlayerContext';
-import Header from './Header';
 import TitleModal from './TitleModal';
 
 const VideoPlayer = () => {
@@ -29,7 +28,6 @@ const VideoPlayer = () => {
                     Pressione alguma tecla para iniciar
                 </h1>
             )}
-            <Header currentVideoIndex={currentVideoIndex} />
             <Player />
             {buttonTitleClick && <TitleModal />}
             <div

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import heart from '../assets/heart.svg';
 import timer from '../assets/timer.svg';
 import me from '../assets/me-pixel.png';
@@ -8,7 +8,7 @@ interface HeaderProps {
     currentVideoIndex: number;
 }
 
-const Header = ({ currentVideoIndex }: HeaderProps) => {
+const Header = React.memo(({ currentVideoIndex }: HeaderProps) => {
     // Controle de estado para os ícones heart e timer
     const [heartIsVisible, setHeartIsVisible] = useState(false);
     const hasPlayedRef = useRef(false);
@@ -169,6 +169,6 @@ const Header = ({ currentVideoIndex }: HeaderProps) => {
             </div>
         </>
     );
-};
+});
 
 export default Header;
