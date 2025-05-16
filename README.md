@@ -49,8 +49,14 @@ cd lofi-flow
 npm install
 ```
 
+3. **Configure as variaveis de ambiente**
 
-3. **Inicie o projeto**
+```bash
+VITE_API_KEY=sua_api_key_youtube
+```
+
+
+4. **Inicie o projeto**
 
 ```bash
 npm run dev
