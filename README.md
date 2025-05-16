@@ -51,6 +51,8 @@ npm install
 
 3. **Configure as variaveis de ambiente**
 
+   Crie um arquivo .env na raiz do projeto e configure:
+
 ```bash
 VITE_API_KEY=sua_api_key_youtube
 ```
