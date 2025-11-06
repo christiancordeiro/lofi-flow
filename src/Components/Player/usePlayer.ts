@@ -33,7 +33,6 @@ export const usePlayer = () => {
         '5yx6BWlEVcY',
         'qH3fETPsqXU',
         '7NOSDKb0HlU',
-        'GgbeNFD7l7Q',
         'HuFYqnbVbzY',
         'vYIYIVmOo3Q',
         '28KRPhVzCus',

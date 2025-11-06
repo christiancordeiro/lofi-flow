@@ -32,10 +32,10 @@ const VideoPlayer = () => {
             {buttonTitleClick && <TitleModal />}
             <div
                 style={{
-                    opacity: 0,
-                    visibility: 'hidden',
+                    opacity: 1,
+                    visibility: 'visible',
                     position: 'absolute',
-                    zIndex: 9999,
+                    zIndex: -9999,
                 }}
             >
                 <YouTube
